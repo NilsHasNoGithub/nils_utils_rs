@@ -1,11 +1,15 @@
 
 
 pub use indicatif;
-use indicatif::{ProgressStyle};
+use indicatif::{ProgressStyle, ProgressBar};
 
 #[static_init::dynamic]
 static PROGRESS_STYLE: ProgressStyle = ProgressStyle::default_bar().template("[{elapsed_precise}]<[{eta_precise}] {wide_bar} {pos:>7}/{len:7} {msg}").progress_chars("#9876543210-");
 
+
+pub fn progress_bar(count: u64) -> ProgressBar {
+    ProgressBar::new(count).with_style(PROGRESS_STYLE.clone())
+}
 
 #[test]
 fn test_progress_bar() {
